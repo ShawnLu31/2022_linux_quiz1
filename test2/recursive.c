@@ -1,12 +1,33 @@
-#include <stdio.h>
-#include "list.h"
+#include "node.h"
 
-struct ListNode {
-    int val;
-    struct list_head *prev, *next;
-};
+struct list_head *deleteDuplicates(struct list_head *head);
 
 int main(int argc, char *argv[]){
-    
+    struct list_head *head = malloc(sizeof(struct list_head));
+    if (!head) {
+        printf("Error NO MEMORY\n");
+        exit(1);
+    }
+    INIT_LIST_HEAD(head);
+
+    FILE *f = fopen(argv[1], "r");
+    int n = 0;
+    while(fscanf(f, "%d", &n) != EOF) {
+        struct ListNode *node = genListNode(n);
+        if (!node) {
+            printf("Error NO MEMORY\n");
+            exit(1);
+        }
+        list_add_tail(&node->list, head);
+    }
+
+    printList(head);
+
+    fclose(f);
     return 0;
+}
+
+struct list_head *deleteDuplicates(struct list_head *head)
+{
+
 }
