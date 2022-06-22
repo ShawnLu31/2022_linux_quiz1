@@ -1,15 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "list.h"
 
-struct ListNode {
+typedef struct {
     int val;
     struct list_head list;
-};
+} ListNode;
 
-struct ListNode *genListNode(int val)
+ListNode *genListNode(int val)
 {
-    struct ListNode *node = malloc(sizeof(struct ListNode));
+    ListNode *node = malloc(sizeof(ListNode));
     if (!node)
         return NULL;
     node->val = val;
@@ -19,7 +20,7 @@ struct ListNode *genListNode(int val)
 
 void printList(struct list_head *head)
 {
-    struct ListNode *node;
+    ListNode *node;
     list_for_each_entry(node, head, list) {
         printf("%d ",node->val);
     }
@@ -28,10 +29,9 @@ void printList(struct list_head *head)
 
 void freeList(struct list_head *head)
 {
-    struct ListNode *del, *next;
-    list_for_each_entry_safe(del, next, head, list) {
+    ListNode *del, *next;
+    list_for_each_entry_safe (del, next, head, list) {
         list_del(&del->list);
-        free(del->val);
         free(del);
     }
 }
