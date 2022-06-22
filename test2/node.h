@@ -25,3 +25,13 @@ void printList(struct list_head *head)
     }
     printf("\n");
 }
+
+void freeList(struct list_head *head)
+{
+    struct ListNode *del, *next;
+    list_for_each_entry_safe(del, next, head, list) {
+        list_del(&del->list);
+        free(del->val);
+        free(del);
+    }
+}

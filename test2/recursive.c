@@ -21,8 +21,15 @@ int main(int argc, char *argv[]){
         list_add_tail(&node->list, head);
     }
 
+    printf("Input: ");
+    printList(head);
+    head = deleteDuplicates(head);
+    printf("Output: ");
     printList(head);
 
+
+    freeList(head);
+    free(head);
     fclose(f);
     return 0;
 }
